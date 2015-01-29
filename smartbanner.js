@@ -3,9 +3,8 @@
  * Based on 'jQuery Smart Banner' by Arnold Daniels <arnold@jasny.net> https://github.com/jasny/jquery.smartbanner
  */
 /*global navigator, window, document */
-(function () {
+define('smartbanner', [], function() {
     'use strict';
-
     // Simple object extend function
     var extend = function(where) {
         Array.prototype.slice.call(arguments, 1).forEach(function(source) {
@@ -193,12 +192,15 @@
         },
         hide: function() {
             removeClass(document.documentElement, 'smartbanner_show');
+            document.querySelector("#sp-header-container section").style.top = 0;
         },
         show: function() {
             addClass(document.documentElement, 'smartbanner_show');
+            document.querySelector("#sp-header-container section").style.top = "84px";
         },
         close: function() {
             this.hide();
+            document.querySelector("#sp-header-container section").style.top = 0;
             setCookie('smartbanner-closed', 'true', this.options.daysHidden);
         },
         install: function() {
@@ -215,6 +217,5 @@
             return this.appId;
         }
     };
-
-    window.SmartBanner = SmartBanner;
-}());
+    return SmartBanner;
+});
